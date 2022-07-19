@@ -1,0 +1,38 @@
+<button nz-button nzType="default"><i nz-icon nzType="eye" nzTheme="outline"></i></button>
+<button nz-button nzType="default" ><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+<!--<button (click)="deleteUser(34)" ) nz-button nzType="default" nzDanger><i nz-icon nzType="delete" nzTheme="outline"></i></button>-->
+<button nz-button nzType="default" nzType="primary"><i nz-icon nzType="search" nzTheme="outline"></i></button>
+<button nz-button  nzType="default">Add new user</button>
+<input nz-input placeholder="Search" nzSize="default" />
+
+
+<button nz-button nzType="default" ><i nz-icon nzType="left" nzTheme="outline"></i></button>
+<button nz-button nzType="default" >{{'1'}}</button>
+<button nz-button nzType="default" >{{'2'}}</button>
+<button nz-button nzType="default" ><i nz-icon nzType="right" nzTheme="outline"></i></button>
+
+
+
+
+<nz-table #basicTable [nzData]="listOfData">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Sex</th>
+    <th>Age</th>
+    <th>Email</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{ data.name }}</td>
+    <td>{{ data.sex }}</td>
+    <td>{{ data.age }}</td>
+    <td>{{ data.email }}</td>
+    <td>
+      Actions
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
