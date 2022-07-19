@@ -1,0 +1,4 @@
+example/Resource/UserResource.class
+META-INF/panache-archive.marker
+example/Entity/User.class
+example/Entity/Sex.class
