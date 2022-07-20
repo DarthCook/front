@@ -5,7 +5,7 @@ import {catchError, Observable, retry} from "rxjs";
 @Injectable()
 export class UserService {
 
-  apiURL = 'http://http://localhost:8080';
+  apiURL = 'http://localhost:8080/';
   constructor(private httpClient: HttpClient) {}
 
   httpOptions = {
@@ -23,18 +23,18 @@ export class UserService {
     return this.httpClient.get(this.apiURL + '/users/' + id);
   }
 
-  public createUser(user: any): Observable<any> {
+  public createUser(user: {name: string; sex: string; age: number; email: string}) {
     return this.httpClient.post(this.apiURL + '/users',
-      JSON.stringify(user), this.httpOptions);
+      user);
   }
 
   public updateUser(id: number, user: any): Observable<any> {
     return this.httpClient.put(this.apiURL + '/users/' + id,
-      JSON.stringify(user), this.httpOptions);
+      user);
   }
 
-  public deleteUser(id: number): Observable<any> {
-    return this.httpClient.delete(this.apiURL + '/users/' + id, this.httpOptions);
+  public deleteUser(id: number) {
+    return this.httpClient.delete('http://localhost:8080/' + '/users/' + id);
   }
 
 }

@@ -16,6 +16,10 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import {UserComponent} from "./user/user.component";
 import {UserListComponent} from "./user/user-list/user-list.component";
 import {NzTableModule} from "ng-zorro-antd/table";
+import {NzWaveModule} from "ng-zorro-antd/core/wave";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzInputModule} from "ng-zorro-antd/input";
+import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 
 registerLocaleData(en);
 
@@ -25,17 +29,21 @@ registerLocaleData(en);
     UserComponent,
     UserListComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    IconsProviderModule,
-    NzLayoutModule,
-    NzMenuModule,
-    NzTableModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        IconsProviderModule,
+        NzLayoutModule,
+        NzMenuModule,
+        NzTableModule,
+        NzWaveModule,
+        NzButtonModule,
+        NzInputModule,
+        NzBreadCrumbModule
+    ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })

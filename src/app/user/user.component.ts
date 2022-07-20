@@ -1,16 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../service/User.service";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  providers: [UserService]
 })
 export class UserComponent implements OnInit {
-  listOfData: any;
+  userList: any;
 
-  constructor() { }
+  constructor(private userService: UserService
+  ) { }
+
 
   ngOnInit(): void {
+    this.userList = this.userService.getUsers();
   }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe(()=> {
+        this.userList = [];
+      });
+  }
+
+  createUser(user: {name: string; sex: string; age: number; email: string}) {
+    this.userService.createUser(user).subscribe(responseData => {
+      console.log(responseData);
+    });
+  }
+
+
 
 }

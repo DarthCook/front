@@ -5,15 +5,20 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.panache.common.Page;
 //import org.hibernate.search.mapper.orm.Search;
 //import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.jboss.resteasy.reactive.RestQuery;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -22,9 +27,6 @@ import java.util.stream.Stream;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
-
-//  @Inject
-//  EntityManager em;
 
   @POST
   @Transactional
@@ -38,13 +40,6 @@ public class UserResource {
     return User.listAll();
   }
 
-
-//  @GET
-//  public Stream<PanacheEntityBase> usersList() {
-//    Stream<PanacheEntityBase> users = User.findAll()
-//      .page(Page.ofSize(10)).nextPage().stream();
-//    return users;
-//  }
 
   @GET
   @Path("/{id}")
@@ -80,23 +75,13 @@ public class UserResource {
     user.delete();
   }
 
-//  @Transactional
-//   onStart(@Observes StartupEvent event) throws InterruptedException {
-//    return Search.getSearchSession(em)
-//      .search(User.class)
-//      .predicate(f ->
-//        f.simpleQueryString().onFields("title").matching(pattern)
-//      )
-//      .fetchHits();
-//  }
-
-//  @GET
-//  @Path("/search")
-//  @Transactional
-//  public List<User> searchUser(@RestQuery String pattern,
-//                               @RestQuery Optional<Integer> size) {
-//
-//    List<User>
-//  }
-
+  @GET
+  @Path("/search")
+  @Transactional
+  public List<User> userSearch(@QueryParam(value = "keyword") String keyword) {
+    String searchQuery = "from User o where o.name like '%" + keyword +"%' " +
+      "or o.email like '%" + keyword +"%' ";
+    List<User> users = User.find(searchQuery).list();
+     return  users;
+  }
 }
