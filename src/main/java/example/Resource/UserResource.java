@@ -2,9 +2,11 @@ package example.Resource;
 
 import example.Entity.User;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Page;
 //import org.hibernate.search.mapper.orm.Search;
 //import org.hibernate.search.mapper.orm.session.SearchSession;
+import io.quarkus.panache.common.Sort;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -36,10 +38,20 @@ public class UserResource {
   }
 
   @GET
-  public List<User> usersList() {
-    return User.listAll();
-  }
+  public List<User> usersList(@QueryParam(value = "sortBy") String sortBy,
+                              @QueryParam(value = "page") Integer page) {
 
+    int size = 6;
+
+    if(sortBy == null && page == null) {
+      return User.findAll(Sort.by("name"))
+        .page(Page.of(0, size)).list();
+    }
+
+    List<User> users = User.findAll(Sort.by(sortBy))
+      .page(Page.of(page-1, size)).list();
+    return users;
+  }
 
   @GET
   @Path("/{id}")
@@ -81,7 +93,6 @@ public class UserResource {
   public List<User> userSearch(@QueryParam(value = "keyword") String keyword) {
     String searchQuery = "from User o where o.name like '%" + keyword +"%' " +
       "or o.email like '%" + keyword +"%' ";
-    List<User> users = User.find(searchQuery).list();
-     return  users;
+     return  User.find(searchQuery).list();
   }
 }
