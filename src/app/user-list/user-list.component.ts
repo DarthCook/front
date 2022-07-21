@@ -11,6 +11,8 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
+  user: IUser | any;
+
   users: IUser[] | any = [];
 
   keyword: string = '';
@@ -20,9 +22,19 @@ export class UserListComponent implements OnInit {
       .subscribe(data => this.users = data);
   }
 
+  getUser(id: number) {
+    this.userService.getUser(id).subscribe(data => this.user = data);
+  }
+
+
+
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(() => console.log('User is deleted'));
     return this.userService.getUsers('', 0).subscribe(data => this.users = data)
+  }
+
+  searchUsers() {
+    this.userService.searchUsers(this.keyword).subscribe(data => this.users = data);
   }
 
 }

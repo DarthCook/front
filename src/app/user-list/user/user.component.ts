@@ -8,14 +8,16 @@ import { IUser } from "../../interface/IUser";
   providers: [UserService]
 })
 export class UserComponent implements OnInit {
-  userList: any;
+
+  users: IUser[] | any;
 
   constructor(private userService: UserService
   ) { }
 
 
   ngOnInit(): void {
-    this.userList = this.userService.getUsers();
+    this.userService.getUsers('', 0)
+      .subscribe(data => this.users = data);
   }
 
   deleteUser(id: number) {
