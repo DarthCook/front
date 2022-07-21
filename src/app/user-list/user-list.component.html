@@ -1,8 +1,8 @@
 <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-  <input (input)="[(keyword)]" type="text" nz-input placeholder="Search" />
+  <input [(ngModel)]="keyword" (input)="keyword" type="text" nz-input placeholder="Search" />
 </nz-input-group>
 <ng-template #suffixButton>
-  <button (click)="searchUsers()"  nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
+  <button (click)="searchUsers(keyword)"  nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
 </ng-template>
 
 

@@ -15,7 +15,12 @@ export class UserListComponent implements OnInit {
 
   users: IUser[] | any = [];
 
-  keyword: string = 'Maria';
+  keyword: string = '';
+
+  sortBy: string = '';
+
+  page: number = 1;
+
 
   ngOnInit(): void {
     this._userService.getUsers()
@@ -31,7 +36,7 @@ export class UserListComponent implements OnInit {
     this._userService.getUsers().subscribe(data => this.users = data);
   }
 
-  searchUsers() {
+  searchUsers(keyword: string) {
     this._userService.searchUsers(this.keyword)
       .subscribe(data => this.users = data);
   }

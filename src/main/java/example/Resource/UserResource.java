@@ -36,6 +36,8 @@ public class UserResource {
     return Response.created(URI.create("/users/" + user.id)).build();
   }
 
+  //Get all users method with integrated sorting and paring
+  //We can use it without any arguments or with any argument
   @GET
   public List<User> usersList(@QueryParam(value = "sortBy") String sortBy,
                               @QueryParam(value = "page") Integer page) {
@@ -95,8 +97,9 @@ public class UserResource {
   @Path("/search")
   @Transactional
   public List<User> userSearch(@QueryParam(value = "keyword") String keyword) {
-    String searchQuery = "from User o where o.name like '%" + keyword +"%' " +
-      "or o.email like '%" + keyword +"%' ";
+    keyword = keyword.toLowerCase();
+    String searchQuery = "from User o where lower(o.name) like '%" + keyword +"%' " +
+      "or lower(o.email) like '%" + keyword +"%' ";
     List<User> users = User.find(searchQuery).list();
      return  users;
   }
