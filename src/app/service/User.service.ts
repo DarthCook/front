@@ -6,7 +6,7 @@ import { IUser } from "../interface/IUser";
 @Injectable()
 export class UserService {
 
-  apiURL = 'http://localhost:8080';
+  apiURL = '/api';
   constructor(private httpClient: HttpClient) {}
 
 

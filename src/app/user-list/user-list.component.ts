@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit {
   keyword: string = '';
 
   ngOnInit(): void {
-    this.userService.getUsers('', 0)
+    this.userService.getUsers('', 1)
       .subscribe(data => this.users = data);
   }
 
@@ -26,11 +26,9 @@ export class UserListComponent implements OnInit {
     this.userService.getUser(id).subscribe(data => this.user = data);
   }
 
-
-
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(() => console.log('User is deleted'));
-    return this.userService.getUsers('', 0).subscribe(data => this.users = data)
+    // return this.userService.getUsers('', 1).subscribe(data => this.users = data)
   }
 
   searchUsers() {
