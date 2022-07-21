@@ -11,12 +11,11 @@ export class UserComponent implements OnInit {
 
   users: IUser[] | any;
 
-  constructor(private userService: UserService
-  ) { }
+  constructor(private userService: UserService) { }
 
 
   ngOnInit(): void {
-    this.userService.getUsers('', 1)
+    this.userService.getUsers()
       .subscribe(data => this.users = data);
   }
 
@@ -31,7 +30,5 @@ export class UserComponent implements OnInit {
       console.log(responseData);
     });
   }
-
-
 
 }

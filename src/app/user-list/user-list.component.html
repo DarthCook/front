@@ -1,11 +1,37 @@
-<button nz-button nzType="default"><i nz-icon nzType="eye" nzTheme="outline"></i></button>
-<button nz-button nzType="default" ><i nz-icon nzType="edit" nzTheme="outline"></i></button>
-<button (click)="deleteUser(39)" nz-button nzType="default" nzDanger><i nz-icon nzType="delete" nzTheme="outline"></i></button>
-<button nz-button nzType="primary"><i nz-icon nzType="search" nzTheme="outline"></i></button>
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+  <input (input)="[(keyword)]" type="text" nz-input placeholder="Search" />
+</nz-input-group>
+<ng-template #suffixButton>
+  <button (click)="searchUsers()"  nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
+</ng-template>
 
-<input (input)="[(keyword)]" type="text" nz-input placeholder="Search" nzSize="default" />
-<button (click)="searchUsers()" nz-button  nzType="default">Add new user</button>
 
-<div *ngFor="let user of users">
-  <div>{{ user.name }}</div>
-</div>
+
+
+
+
+
+<nz-table #borderedTable nzBordered nzTitle="Header" >
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Sex</th>
+    <th>Age</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.name }}</td>
+    <td>{{ user.sex }}</td>
+    <td>{{ user.age }}</td>
+    <td>{{ user.email }}</td>
+    <td>
+      <button nz-button nzType="default"><i nz-icon nzType="eye" nzTheme="outline"></i></button>
+      <button nz-button nzType="default" ><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+      <button (click)="deleteUser(user.id)" nz-button nzType="default" nzDanger><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

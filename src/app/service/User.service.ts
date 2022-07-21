@@ -9,8 +9,14 @@ export class UserService {
   apiURL = '/api';
   constructor(private httpClient: HttpClient) {}
 
-
-  public getUsers(sortBy: string, page: number): Observable<IUser[]> {
+  public getUsers(sortBy?: string, page?: number): Observable<IUser[]> {
+    if (sortBy === undefined && page === undefined) {
+      return this.httpClient.get<IUser[]>(this.apiURL + '/users');
+    } else if(sortBy === undefined) {
+      return this.httpClient.get<IUser[]>(this.apiURL + '/users?page=' + page);
+    } else if (page === undefined) {
+      return this.httpClient.get<IUser[]>(this.apiURL + '/users?sortBy=' + page);
+    }
     return this.httpClient.get<IUser[]>(this.apiURL + '/users?sortBy='
       + sortBy + '&page=' + page);
   }

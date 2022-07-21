@@ -9,30 +9,31 @@ import { IUser } from "../interface/IUser";
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private _userService: UserService) { }
 
   user: IUser | any;
 
   users: IUser[] | any = [];
 
-  keyword: string = '';
+  keyword: string = 'Maria';
 
   ngOnInit(): void {
-    this.userService.getUsers('', 1)
+    this._userService.getUsers()
       .subscribe(data => this.users = data);
   }
 
   getUser(id: number) {
-    this.userService.getUser(id).subscribe(data => this.user = data);
+    this._userService.getUser(id).subscribe(data => this.user = data);
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(() => console.log('User is deleted'));
-    // return this.userService.getUsers('', 1).subscribe(data => this.users = data)
+    this._userService.deleteUser(id).subscribe(() => console.log('User is deleted'));
+    this._userService.getUsers().subscribe(data => this.users = data);
   }
 
   searchUsers() {
-    this.userService.searchUsers(this.keyword).subscribe(data => this.users = data);
+    this._userService.searchUsers(this.keyword)
+      .subscribe(data => this.users = data);
   }
 
 }
