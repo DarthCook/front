@@ -1,0 +1,10 @@
+<button nz-button nzType="default"><i nz-icon nzType="eye" nzTheme="outline"></i></button>
+<button nz-button nzType="default" ><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+<button (click)="deleteUser(39)" nz-button nzType="default" nzDanger><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+<button nz-button nzType="primary"><i nz-icon nzType="search" nzTheme="outline"></i></button>
+<button nz-button  nzType="default">Add new user</button>
+<input nz-input placeholder="Search" nzSize="default" />
+
+<div *ngFor="let user of users">
+  <div>{{ user.name }}</div>
+</div>

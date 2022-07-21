@@ -13,13 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import {UserComponent} from "./user/user.component";
-import {UserListComponent} from "./user/user-list/user-list.component";
+import {UserComponent} from "./user-list/user/user.component";
+import {UserListComponent} from "./user-list/user-list.component";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
+import {UserService} from "./service/User.service";
 
 registerLocaleData(en);
 
@@ -44,7 +45,7 @@ registerLocaleData(en);
         NzInputModule,
         NzBreadCrumbModule
     ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

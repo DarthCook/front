@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../service/User.service";
+import {UserService} from "../../service/User.service";
+import { IUser } from "../../interface/IUser";
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,7 @@ export class UserComponent implements OnInit {
 
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(()=> {
-        this.userList = [];
+      console.log('User is deleted');
       });
   }
 

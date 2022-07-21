@@ -1,26 +1,22 @@
 import { Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable, retry} from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError, Observable, retry } from "rxjs";
+import { IUser } from "../interface/IUser";
 
 @Injectable()
 export class UserService {
 
-  apiURL = 'http://localhost:8080/';
+  apiURL = 'http://localhost:8080';
   constructor(private httpClient: HttpClient) {}
 
-  httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-    responseType: 'text' as 'json'
-  }
 
-  public getUsers(): Observable<any> {
-    return this.httpClient.get(this.apiURL + '/users');
+  public getUsers(sortBy: string, page: number): Observable<IUser[]> {
+    return this.httpClient.get<IUser[]>(this.apiURL + '/users?sortBy='
+      + sortBy + '&page=' + page);
   }
 
   public getUser(id: number): Observable<any> {
-    return this.httpClient.get(this.apiURL + '/users/' + id);
+    return this.httpClient.get<IUser>(this.apiURL + '/users/' + id);
   }
 
   public createUser(user: {name: string; sex: string; age: number; email: string}) {
@@ -34,7 +30,11 @@ export class UserService {
   }
 
   public deleteUser(id: number) {
-    return this.httpClient.delete('http://localhost:8080/' + '/users/' + id);
+    return this.httpClient.delete(this.apiURL + '/users/' + id);
+  }
+
+  public searchUsers(keyword: string) {
+    return this.httpClient.get<IUser[]>(this.apiURL + '/users/search?keyword=' + keyword);
   }
 
 }
